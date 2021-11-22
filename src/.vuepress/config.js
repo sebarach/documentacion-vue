@@ -6,7 +6,7 @@ module.exports = {
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#title
    */
-  title: 'Documentacion Genera !!',
+  title: 'Documentacion General !💻💻💻',
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#description
    */
@@ -36,26 +36,26 @@ module.exports = {
     lastUpdated: false,
     nav: [
       {
-        text: 'Guide',
+        text: 'Documentacion 😄',
         link: '/guide/',
       },
       {
-        text: 'Config',
+        text: 'Config 🚀',
         link: '/config/'
       },
       {
-        text: 'VuePress',
-        link: 'https://v1.vuepress.vuejs.org'
+        text: 'Mi GitHub ! ❤️',
+        link: 'https://github.com/sebarach'
       }
     ],
     sidebar: {
       '/guide/': [
         {
-          title: 'Guide',
+          title: 'Documentacion',
           collapsable: false,
           children: [
             '',
-            'using-vue',
+            'git-basico',
           ]
         }
       ],

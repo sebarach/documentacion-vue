@@ -2,7 +2,7 @@
 home: true
 heroImage: https://e7.pngegg.com/pngimages/710/270/png-clipart-documentation-paper-publication-mail-others-miscellaneous-academic-certificate.png
 tagline: 
-actionText: Revisar Docuementacion→
+actionText: Revisar Docuementacion →
 actionLink: /guide/
 features:
 - title: Feature 1 Title
