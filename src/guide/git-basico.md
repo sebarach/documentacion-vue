@@ -10,7 +10,7 @@ git init
 ```js
 git clone url
 git clone branchNombre url
-git branch -a
+git branch -a // lista todas las ramas localess y remotas
 git checkout nombreBranch
 ```
 
@@ -21,9 +21,22 @@ git add .
 git commit -m 'Mensaje del commit'
 ```
 
-- eliminar branch remotos
+- conectar a branch remotos
 ```js
-git remote -v 
-git remote rm nombrDeLaRama
+git remote -v // lista los repositorios remotos
+git remote add branch url// se conecta a un repo
+git remote rm nombrDeLaRama // elimina una rama
+```
+
+- agregar archivos y commit
+```js
+git add . // agrega todos los cambios
+git add nombreArchivo // agrega un archivo o carpeta especifica
+git commit -m 'Mensaje'// crea un commit
+```
+
+- Sube cambios a la url remota
+```js
+git push nombreRama // lista los repositorios remotos
 ```
 
