@@ -52,12 +52,20 @@ module.exports = {
       '/guide/': [
         {
           title: 'Documentacion',
-          collapsable: false,
+          collapsable: true,
           children: [
             '',
             'git-basico',
           ]
-        }
+        },
+        {
+          title: 'Apuntes',
+          collapsable: true,
+          children: [
+            '/guide/apuntes/',
+            '/guide/apuntes/uai-sql',
+          ]
+        },
       ],
     }
   },
