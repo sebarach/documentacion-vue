@@ -33,10 +33,12 @@ git remote rm nombrDeLaRama // elimina una rama
 git add . // agrega todos los cambios
 git add nombreArchivo // agrega un archivo o carpeta especifica
 git commit -m 'Mensaje'// crea un commit
+git commit --amend  // Se agrega al ultimo commit
 ```
 
 - Sube cambios a la url remota
 ```js
-git push nombreRama // lista los repositorios remotos
+git push ramaRemota // sube los cambios al remoto
+git push ramaRemota --force // ignora los conflictos
 ```
 

@@ -64,6 +64,7 @@ module.exports = {
           children: [
             '/guide/apuntes/',
             '/guide/apuntes/uai-sql',
+            '/guide/apuntes/encochinamiento',
           ]
         },
       ],
