@@ -42,3 +42,9 @@ git push ramaRemota // sube los cambios al remoto
 git push ramaRemota --force // ignora los conflictos
 ```
 
+- Ignora el commit actual para hacer pull del repo remoto
+```js
+git reset --hard HEAD
+git pull main main 
+```
+
