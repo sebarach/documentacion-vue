@@ -36,6 +36,10 @@ module.exports = {
     lastUpdated: false,
     nav: [
       {
+        text: 'Cuentas Departamento 💵💵💵',
+        link: '/departamento/',
+      },
+      {
         text: 'Documentacion 😄',
         link: '/guide/',
       },
@@ -65,6 +69,21 @@ module.exports = {
             '/guide/apuntes/',
             '/guide/apuntes/uai-sql',
             '/guide/apuntes/encochinamiento',
+          ]
+        },
+      ],
+      '/departamento/': [
+        {
+          title: 'General',
+          collapsable: true,
+          children: [
+            'mayo2021',
+            'junio2021',
+            'julio2021',
+            'agosto2021',
+            'septiembre2021',
+            'octubre2021',
+            'noviembre2021'
           ]
         },
       ],
