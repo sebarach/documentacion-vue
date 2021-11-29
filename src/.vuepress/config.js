@@ -20,7 +20,8 @@ module.exports = {
   head: [
     ['meta', { name: 'theme-color', content: '#3eaf7c' }],
     ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
-    ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }]
+    ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }],
+    ['link', { rel: 'shortcut icon', type: "image/x-icon", href:`/favicon.ico` }]
   ],
 
   /**
@@ -35,6 +36,10 @@ module.exports = {
     editLinkText: '',
     lastUpdated: false,
     nav: [
+      {
+        text: 'JavaScript ! 💀💀💀',
+        link: '/javascript/',
+      },
       {
         text: 'Cuentas Departamento 💵💵💵',
         link: '/departamento/',
@@ -86,6 +91,24 @@ module.exports = {
             'noviembre2021',
           ]
         },
+        {
+          title: 'Numero de Cuentas',
+          collapsable: true,
+          children: [
+            '/departamento/num-cuentas/',
+          ]
+        },
+      ],
+      '/javascript/': [
+        {
+          title: 'General',
+          collapsable: true,
+          children: [
+            'basico',
+            'medio',
+            'advanced',
+          ]
+        }
       ],
     }
   },
