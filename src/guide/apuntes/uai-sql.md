@@ -127,3 +127,160 @@ AND UA.Id IN (1,2)
 create table #tmp(idExpCarrera int,IdCombinacion int,IdReglamento int)
 insert into #tmp =""&B2&","&C2&","&D2&""
 ```
+
+
+- Reporte encuesta de investigacion
+```sql
+select UsuarioId,CP.EmailUai,'Si' Contesto from Omega_EncuestaOmegaPoblacionUsuarios EP
+JOIN Seguridad_Usuario SU ON EP.UsuarioId = SU.Id AND SU.IsDeleted = 0
+JOIN Common_Persona CP ON SU.PersonaId = CP.Id
+WHERE EP.UsuarioId  in (select usuarioid from Omega_EscuestaOmegaProfesores where VersionId = 10)
+AND EP.PoblacionId = 10
+union all
+select UsuarioId,CP.EmailUai,'No' Contesto from Omega_EncuestaOmegaPoblacionUsuarios EP
+JOIN Seguridad_Usuario SU ON EP.UsuarioId = SU.Id AND SU.IsDeleted = 0
+JOIN Common_Persona CP ON SU.PersonaId = CP.Id
+WHERE EP.UsuarioId not in (select usuarioid from Omega_EscuestaOmegaProfesores where VersionId = 10)
+AND EP.PoblacionId = 10
+```
+
+
+- Obtiene horario inscripciones segun alumno id
+```sql
+select  ep.Id idExpediente,ip.Id idInscripcion,hs.Id horarioSeccion,dbo.fnObtiene_HoraHorarioSeccion(mo.HoraInicio)Inicio,dbo.fnObtiene_HoraHorarioSeccion(mo.HoraTermino)Termino,hs.DiaSemana,se.Id seccionId,hs.FechaModificacion,hs.UsuarioIdModificacion
+from Expediente_Inscripcion IP with (nolock) 
+join Expediente_Expediente ep with (nolock) on ep.Id = IP.ExpedienteId and ep.IsDeleted = 0
+join Expediente_Alumno al with (nolock) on al.Id = ep.AlumnoId and al.IsDeleted = 0
+join Planificacion_Seccion se with (nolock) on se.Id = ip.SeccionId and se.IsDeleted = 0
+join Planificacion_HorarioSeccion hs with (nolock) on hs.SeccionId = se.Id and hs.IsDeleted = 0
+join Planificacion_ModuloUnidadAcademica mo with (nolock) on mo.Id = hs.ModuloUnidadAcademicaId and mo.IsDeleted = 0
+join Core_Asignatura asi with (nolock) on asi.Id = se.AsignaturaId and asi.IsDeleted = 0
+join Core_NombreAsignatura na with (nolock) on na.Id = asi.NombreAsignaturaVigenteId and na.IsDeleted = 0
+left join Planificacion_Instructor it with (nolock) on it.Id = se.InstructorId and it.IsDeleted = 0
+left join Common_Persona pe with (nolock) on pe.Id = it.PersonaId and pe.IsDeleted = 0
+left join Common_Sala sa with (nolock) on hs.SalaId = sa.Id and sa.IsDeleted = 0
+where al.Id = 59185
+and ip.Estado = 3
+and ip.IsAnulada = 0
+and ip.IsDeleted = 0
+and ep.Estado = 1
+```
+
+
+- Cantidad de inscripciones segun rut enviados por excel y insertados en una tabla temporal
+```sql
+select CP.Rut,CP.DigitoVerificador[DIGITO]
+,INS.ExpedienteId[Expediente ID]
+, count(distinct INS.id) [Q Inscripciones Pregrado]
+from Expediente_Expediente EE
+JOIN Expediente_Alumno EA ON EE.AlumnoId = EA.Id AND EA.IsDeleted = 0
+JOIN Common_Persona CP ON EA.PersonaId = CP.Id AND CP.IsDeleted = 0
+JOIN #TMP TMP ON TMP.rut = CP.Rut -- join con tabla temporal con ruts
+JOIN Expediente_Inscripcion INS ON INS.ExpedienteId = EE.Id	AND INS.IsDeleted = 0
+join Planificacion_Seccion SS on SS.id = INS.SeccionId and SS.IsDeleted = 0
+join Planificacion_PeriodoAcademico PA on PA.id = SS.PeriodoAcademicoId and PA.IsDeleted = 0 and PA.AnoPeriodo = 2021 and PA.UnidadAcademicaId in (1,2)
+WHERE INS.Estado = 3 AND EE.UnidadAcademicaId IN (1,2) AND INS.IsAnulada = 0
+group by CP.Rut,CP.DigitoVerificador,INS.ExpedienteId
+order by CP.Rut ASC
+```
+
+- Funcion que transforma hora desde el INT de omega
+```sql
+CAST([dbo].fnObtiene_HoraHorarioSeccion(PHC.HoraInicio) AS varchar) [Inicio]
+```
+
+- Inscripciones segun su ETAPA ID Y CUALQUEIER PARAMETRO Q SE DESEE SEGUN SUS JOIN
+```sql
+select top 100 *  from InscripcionAsignatura_EtapaInscripcionAsignatura IE
+JOIN InscripcionAsignatura_ConfiguracionInscripcionAsignatura CONF ON IE.ConfiguracionInscripcionAsignaturaId = CONF.Id
+JOIN Planificacion_PeriodoAcademico PP ON CONF.PeriodoAcademicoId = PP.Id
+JOIN Planificacion_Seccion PS ON PS.PeriodoAcademicoId = PP.Id
+JOIN Planificacion_HorarioSeccion PHC ON PHC.SeccionId = PS.Id
+where  PS.SeccionCerrada = 0 -- AND PHC.SeccionId = 14777
+```
+
+- Trae las ayudantias realizadas por un instructor, y temas de pago por su correo y opcionalmente una sigla de la asignatura
+```sql
+		SELECT LNK.Id ,ASI.Sigla, NA.Nombre, SE.NumeroSeccion, PA.Nombre PeriodoAcademico, PA.AnoPeriodo Año, SUM(LNK.ValorPago) Monto, UA.CentroDeCosto CentroCosto, LNK.Cobrado
+		FROM Expediente_Alumno A
+		JOIN Planificacion_Instructor I ON I.PersonaId = A.PersonaId AND I.TipoRolId = 5 AND I.IsDeleted = 0
+		JOIN Planificacion_LinkSeccionInstructor LSI ON LSI.InstructorId = I.Id
+		JOIN Planificacion_Seccion SE ON SE.Id = LSI.SeccionId AND SE.IsDeleted = 0
+		JOIN Core_NombreAsignatura NA ON NA.Id = SE.NombreAsignaturaId AND NA.IsDeleted = 0
+		JOIN Core_Asignatura ASI ON ASI.Id = SE.AsignaturaId AND ASI.IsDeleted = 0
+		JOIN PagoAyudante_LinkSeccionInstructorMes LNK ON LNK.LinkSeccionInstructorId = LSI.Id AND LNK.IsDeleted = 0  --AND LNK.NumeroMes <= DATEPART(MONTH,GETDATE())
+		JOIN Planificacion_PeriodoAcademico PA ON PA.Id = SE.PeriodoAcademicoId AND PA.IsDeleted = 0-- AND PA.AnoPeriodo = DATEPART(YEAR,GETDATE()) AND PA.NumeroPeriodo <> 1
+		JOIN Core_UnidadAcademica UA ON UA.Id = PA.UnidadAcademicaId AND UA.IsDeleted = 0
+		WHERE A.IsDeleted = 0 AND A.Email = 'alecorrea@alumnos.uai.cl' AND LNK.IsDeleted = 0 AND Sigla ='MAT105'
+		GROUP BY LNK.Id ,ASI.Sigla, NA.Nombre, SE.NumeroSeccion, PA.Nombre, PA.AnoPeriodo, UA.CentroDeCosto, PA.Id, LNK.Cobrado
+		HAVING SUM(LNK.ValorPago) IS NOT NULL --AND SUM(LNK.ValorPago) > 0
+```
+
+
+- Ver % de avance de ayudantes segun los RUT ENVIADOS 
+- tipoRolId de la tabla planificacionInstuctor = (5 = ayudante)
+```sql
+select EE.Id[Expediente ID]
+,CP.Nombre + ' '+ CP.ApellidoPaterno [Nombre]
+,EA.Email [Correo]
+,CP.Rut[RUT]
+,CP.DigitoVerificador [DIGITO VERIFICADOR]
+,EEX.DESCRIPCIONESTADO[ESTADO]
+,ISNULL(ROUND(EE.PorcentajeAvancePlanEstudio,2),0)[% AVANCE]  
+from Common_Persona CP 
+JOIN Expediente_Alumno EA ON CP.Id = EA.PersonaId AND EA.IsDeleted = 0
+JOIN Expediente_Expediente EE ON EE.AlumnoId = EA.Id AND EE.IsDeleted = 0
+join Expediente_EstadoExpediente EEX ON EE.Estado = EEX.IdEstado AND EEX.IdSubEstado = EE.EstadoInactivo
+join Planificacion_Instructor PLI ON PLI.PersonaId = CP.Id AND PLI.TipoRolId = 5
+where rut IN (19671003,19035029,19488443,19471216,19842262,20847560)
+order by cp.Rut desc
+```
+
+- Obtiene las inscripciones vigentes de un alumno segun su Expediente ID y su periodoacademico ID
+- Ademas trae la informacion de la seccion y el instructor
+```sql
+select EE.Id[Expediente ID]
+,CP.Nombre + ' '+ CP.ApellidoPaterno [Nombre]
+,EA.Email [Correo]
+,CP.Rut[RUT]
+,CP.DigitoVerificador [DIGITO VERIFICADOR]
+,EEX.DESCRIPCIONESTADO[ESTADO]
+,ISNULL(ROUND(EE.PorcentajeAvancePlanEstudio,2),0)[% AVANCE]  
+from Common_Persona CP 
+JOIN Expediente_Alumno EA ON CP.Id = EA.PersonaId AND EA.IsDeleted = 0
+JOIN Expediente_Expediente EE ON EE.AlumnoId = EA.Id AND EE.IsDeleted = 0
+join Expediente_EstadoExpediente EEX ON EE.Estado = EEX.IdEstado AND EEX.IdSubEstado = EE.EstadoInactivo
+join Planificacion_Instructor PLI ON PLI.PersonaId = CP.Id AND PLI.TipoRolId = 5
+where rut IN (19671003,19035029,19488443,19471216,19842262,20847560)
+order by cp.Rut desc
+```
+
+- Reporte asistencia deporte Vina
+- Ejecutar en Base de datos UAIV
+```sql
+select distinct NM.Sigla,EE.Id,cp.Nombre,cp.ApellidoPaterno,cp.ApellidoMaterno,cast(cp.Rut as varchar)+'-'+cp.DigitoVerificador [Rut Cumpleto]
+		,T1.*from (
+
+					select tbl1.rut[rut],
+					tbl1.agosto[Agosto],
+					isnull(tb2.agosto,0)[Castigo Agosto],
+					tbl1.septiembre[Septiembre],
+					isnull(tb2.septiembre,0)[Castigo Septiembre],
+					tbl1.octubre[Octubre],
+					isnull(tb2.octubre,0)[Castigo Octubre],
+					tbl1.noviembre[Noviembre],
+					isnull(tb2.noviembre,0)[Castigo Noviembre],
+					tbl1.diciembre[Diciembre],
+					isnull(tb2.diciembre,0)[Castigo Diciembre],
+					tbl1.agosto + tbl1.septiembre + tbl1.octubre + tbl1.noviembre + tbl1.diciembre 
+					-isnull(tb2.agosto,0) - isnull(tb2.septiembre,0) - isnull(tb2.octubre,0) - isnull(tb2.noviembre,0) - isnull(tb2.diciembre,0)[Total]
+					from [dbo].[tfAsistencia_ObtienePivot]('2021-08-02','2021-12-13') tbl1
+					left join [dbo].[tfCastigos_ObtienePivot]('2021-08-02','2021-12-13') tb2 on tbl1.rut = tb2.rut) as T1
+JOIN OmegaDB.dbo.Common_Persona CP on t1.rut = cp.Rut AND CP.IsDeleted = 0
+JOIN OmegaDB.dbo.Expediente_Alumno EA ON CP.Id = EA.PersonaId AND EA.IsDeleted = 0
+JOIN OmegaDB.dbo.Expediente_Expediente EE ON EA.ID = EE.AlumnoId AND EE.Estado =1 AND EE.EstadoInactivo = 1 AND EE.IsDeleted = 0 AND EE.UnidadAcademicaId = 2
+JOIN OmegaDB.dbo.Expediente_Inscripcion INS ON EE.Id = INS.ExpedienteId AND INS.IsAnulada =0 AND INS.IsDeleted = 0
+JOIN OmegaDB.dbo.Planificacion_Seccion PS ON INS.SeccionId = PS.Id AND PS.SeccionCerrada = 0 AND PS.IsDeleted = 0 AND PS.PeriodoAcademicoId = 3151
+JOIN OmegaDB.dbo.PlanEstudio_NodoMalla NM ON INS.NodoMallaId = NM.Id AND NM.TipoAsignatura = 3
+ORDER BY [Rut Cumpleto]
+```
