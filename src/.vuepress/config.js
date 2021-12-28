@@ -89,6 +89,7 @@ module.exports = {
             'septiembre2021',
             'octubre2021',
             'noviembre2021',
+            'diciembre2021',
           ]
         },
         {
