@@ -37,6 +37,10 @@ module.exports = {
     lastUpdated: false,
     nav: [
       {
+        text: 'SQL!📘📘',
+        link: '/sqlserver/',
+      },
+      {
         text: 'JavaScript ! 💀💀💀',
         link: '/javascript/',
       },
@@ -108,6 +112,15 @@ module.exports = {
             'basico',
             'medio',
             'advanced',
+          ]
+        }
+      ],
+      '/sqlserver/': [
+        {
+          title: 'General',
+          collapsable: true,
+          children: [
+            'tips',
           ]
         }
       ],
