@@ -284,3 +284,183 @@ JOIN OmegaDB.dbo.Planificacion_Seccion PS ON INS.SeccionId = PS.Id AND PS.Seccio
 JOIN OmegaDB.dbo.PlanEstudio_NodoMalla NM ON INS.NodoMallaId = NM.Id AND NM.TipoAsignatura = 3
 ORDER BY [Rut Cumpleto]
 ```
+
+
+
+- Reporte de ayudantes con pagos pendientes
+```sql
+SELECT  distinct A.Email,CP.Nombre,cp.ApellidoPaterno,cp.ApellidoMaterno,CP.Rut,cp.DigitoVerificador, ASI.Sigla, NA.Nombre, SE.NumeroSeccion, PA.Nombre PeriodoAcademico, PA.AnoPeriodo Año,UA.CentroDeCosto CentroCosto, LNK.Cobrado, UnidadAcademicaId,LNK.Id
+FROM Expediente_Alumno A
+	 JOIN Common_Persona CP ON A.PersonaId = CP.Id AND CP.IsDeleted = 0
+     JOIN Planificacion_Instructor I ON I.PersonaId = A.PersonaId
+                                        AND I.TipoRolId = 5
+                                        AND I.IsDeleted = 0
+     JOIN Planificacion_LinkSeccionInstructor LSI ON LSI.InstructorId = I.Id
+     JOIN Planificacion_Seccion SE ON SE.Id = LSI.SeccionId
+                                      AND SE.IsDeleted = 0
+     JOIN Core_NombreAsignatura NA ON NA.Id = SE.NombreAsignaturaId
+                                      AND NA.IsDeleted = 0
+     JOIN Core_Asignatura ASI ON ASI.Id = SE.AsignaturaId
+                                 AND ASI.IsDeleted = 0
+     JOIN PagoAyudante_LinkSeccionInstructorMes LNK ON LNK.LinkSeccionInstructorId = LSI.Id
+                                                       AND LNK.IsDeleted = 0
+                                                       AND LNK.Cobrado = 0
+     JOIN Planificacion_PeriodoAcademico PA ON PA.Id = SE.PeriodoAcademicoId
+                                               AND PA.IsDeleted = 0
+											   AND PA.ID IN (3150,3151)
+     JOIN Core_UnidadAcademica UA ON UA.Id = PA.UnidadAcademicaId
+                                     AND UA.IsDeleted = 0
+WHERE A.IsDeleted = 0
+      AND LNK.IsDeleted = 0
+```
+
+
+-  Insertar tabla ayupre ayudantes periodo de verano
+```sql
+INSERT INTO Planificacion_Ayupre(PeriodoAcademicoId, Procesado, UsuarioIdCreacion, FechaCreacion, UsuarioIdModificacion, FechaModificacion, IsDeleted, DiaInicioSubidaBoleta, DiaTerminoSubidaBoleta, DiaDeclaracionMontos)
+VALUES(3314 , 1 , 1 , GETDATE() , 1 , GETDATE(), 0, 7, 20, 6);
+```
+---
+
+
+-  Insertar tabla ExpedienteExpediente
+```sql
+begin tran x
+insert into Expediente_Expediente
+select 
+	   ea.Id
+      ,tp.planId -- planid
+      ,0--EE.InformacionFinancieraId
+      ,0--EE.IcaAlumnoId
+      ,0--EE.CeremoniaId
+      ,0--EE.UniversidadIntercambioId
+      ,cast(tp.rut as nvarchar(20))+'-'+tp.dv+' - ICOM'--EE.NumeroExpediente
+      ,1--EE.Estado
+      ,1--EE.EstadoInactivo
+      ,'01-01-1900'--EE.FechaEstadoInactivo
+      ,''--EE.DescripcionEstadoInactivo
+      ,GETDATE()--EE.FechaIngreso
+      ,0--EE.Egresado
+      ,'01-01-1900'--EE.FechaEgreso
+      ,'01-01-1900'--EE.FechaGrado
+      ,0--EE.Titulado
+      ,'01-01-1900'--EE.FechaTitulacion
+      ,0--EE.ProgramaOtorga
+      ,0--EE.Ranking
+      ,0--EE.RankingEgreso
+      ,0--EE.Extranjero
+      ,0--EE.Intercambio
+      ,0--EE.TipoIntercambio
+      ,0--EE.RecibeCorreosMasivos
+      ,tp.versionPlanEstudioId --VersionPlanEstudioId
+      ,0
+      ,0--EE.SituacionAcademicaId
+      ,1--EE.UsuarioIdCreacion
+      ,GETDATE()--EE.FechaCreacion
+      ,1--EE.UsuarioIdModificacion
+      ,GETDATE()--EE.FechaModificacion
+      ,0--EE.IsDeleted
+      ,''--EE.NumeroCarpeta
+      ,tp.programaId --EE.ProgramaId
+      ,tp.unidadAcademica--EE.UnidadAcademicaId
+      ,0--EE.PeriodoIngreso
+      ,tp.reglamentoId --EE.ReglamentoId
+      ,0--EE.PeriodoAvance -- ############################# ESTE DATO DEBE IR SI O SI, ES EL PeriodoAcademicoId cuando Inicia #############################
+      ,null--EncuestaSatisfaccionIdLst
+      ,tp.unidadAcademica--EE.UnidadAcademicaInscripcionAsignaturaId
+      ,null--DeporteRebajadoIdLst
+      ,null--InglesRebajadoIdLst
+      ,0 --PeriodoInscripcion
+      ,0--EE.PorcentajeAvancePlanEstudio
+      ,tp.expedienteCarrera--EE.ExpedienteCarreraId
+      ,null--InscripcionRequisitoExtraIdLst
+      ,0--EE.TienePeriodoRecuperativo
+      ,null--SituacionAcademicaHistoricaIdLst
+      ,0--EE.PromedioPonderadoAcumulado
+      ,0--EE.PromedioGrado
+      ,0--EE.PeriodoAvanceTomaRamos
+      ,0
+      ,0--EE.EstadoCarrera
+      ,0--EE.EstadoGrado
+      ,0--EE.ExpedientePrevioExigidoId
+      ,0--EE.ExigeExpedientePrevioTerminado
+      ,0--EE.TrackHonor
+      ,0--EE.TransaccionId
+from #tmp tp
+join Common_Persona cp on cp.Rut = tp.rut 
+join Expediente_Alumno ea on ea.PersonaId = cp.Id 
+--rollback
+--commit;
+```
+---
+
+- #### Insertar en tabla Expediente_Expediente
+```sql
+begin tran x
+insert into Expediente_Expediente
+select 
+	   ea.Id
+      ,tp.planId -- planid
+      ,0--EE.InformacionFinancieraId
+      ,0--EE.IcaAlumnoId
+      ,0--EE.CeremoniaId
+      ,0--EE.UniversidadIntercambioId
+      ,cast(tp.rut as nvarchar(20))+'-'+tp.dv+' - ICOM'--EE.NumeroExpediente
+      ,1--EE.Estado
+      ,1--EE.EstadoInactivo
+      ,'01-01-1900'--EE.FechaEstadoInactivo
+      ,''--EE.DescripcionEstadoInactivo
+      ,GETDATE()--EE.FechaIngreso
+      ,0--EE.Egresado
+      ,'01-01-1900'--EE.FechaEgreso
+      ,'01-01-1900'--EE.FechaGrado
+      ,0--EE.Titulado
+      ,'01-01-1900'--EE.FechaTitulacion
+      ,0--EE.ProgramaOtorga
+      ,0--EE.Ranking
+      ,0--EE.RankingEgreso
+      ,0--EE.Extranjero
+      ,0--EE.Intercambio
+      ,0--EE.TipoIntercambio
+      ,0--EE.RecibeCorreosMasivos
+      ,tp.versionPlanEstudioId --VersionPlanEstudioId
+      ,0
+      ,0--EE.SituacionAcademicaId
+      ,1--EE.UsuarioIdCreacion
+      ,GETDATE()--EE.FechaCreacion
+      ,1--EE.UsuarioIdModificacion
+      ,GETDATE()--EE.FechaModificacion
+      ,0--EE.IsDeleted
+      ,''--EE.NumeroCarpeta
+      ,tp.programaId --EE.ProgramaId
+      ,tp.unidadAcademica--EE.UnidadAcademicaId
+      ,0--EE.PeriodoIngreso
+      ,tp.reglamentoId --EE.ReglamentoId
+      ,0--EE.PeriodoAvance -- ############################# ESTE DATO DEBE IR SI O SI, ES EL PeriodoAcademicoId cuando Inicia #############################
+      ,null--EncuestaSatisfaccionIdLst
+      ,tp.unidadAcademica--EE.UnidadAcademicaInscripcionAsignaturaId
+      ,null--DeporteRebajadoIdLst
+      ,null--InglesRebajadoIdLst
+      ,0 --PeriodoInscripcion
+      ,0--EE.PorcentajeAvancePlanEstudio
+      ,tp.expedienteCarrera--EE.ExpedienteCarreraId
+      ,null--InscripcionRequisitoExtraIdLst
+      ,0--EE.TienePeriodoRecuperativo
+      ,null--SituacionAcademicaHistoricaIdLst
+      ,0--EE.PromedioPonderadoAcumulado
+      ,0--EE.PromedioGrado
+      ,0--EE.PeriodoAvanceTomaRamos
+      ,0
+      ,0--EE.EstadoCarrera
+      ,0--EE.EstadoGrado
+      ,0--EE.ExpedientePrevioExigidoId
+      ,0--EE.ExigeExpedientePrevioTerminado
+      ,0--EE.TrackHonor
+      ,0--EE.TransaccionId
+from #tmp tp
+join Common_Persona cp on cp.Rut = tp.rut 
+join Expediente_Alumno ea on ea.PersonaId = cp.Id 
+--rollback
+--commit;
+```
+---

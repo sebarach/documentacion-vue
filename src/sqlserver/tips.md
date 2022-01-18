@@ -13,3 +13,8 @@ SELECT CHARINDEX('palabra','la palabra de dios'); -- 5
 select SUBSTRING('la palabra de dios',4,7)-- palabra
 ```
 ---
+- #### Quitar dobles espacios y saltos de linea
+```sql
+SELECT replace(replace(replace('String',' ','<>'),'><',''),'<>',' ')
+```
+---

@@ -37,6 +37,10 @@ module.exports = {
     lastUpdated: false,
     nav: [
       {
+        text: 'PluralSight!📘📘',
+        link: '/pluralsight/',
+      },
+      {
         text: 'SQL!📘📘',
         link: '/sqlserver/',
       },
@@ -121,6 +125,15 @@ module.exports = {
           collapsable: true,
           children: [
             'tips',
+          ]
+        }
+      ],
+      '/pluralsight/': [
+        {
+          title: 'General',
+          collapsable: true,
+          children: [
+            'debuger',
           ]
         }
       ],
