@@ -18,3 +18,5 @@ select SUBSTRING('la palabra de dios',4,7)-- palabra
 SELECT replace(replace(replace('String',' ','<>'),'><',''),'<>',' ')
 ```
 ---
+
+

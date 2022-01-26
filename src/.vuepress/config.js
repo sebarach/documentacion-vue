@@ -134,6 +134,7 @@ module.exports = {
           collapsable: true,
           children: [
             'debuger',
+            'net5',
           ]
         }
       ],
