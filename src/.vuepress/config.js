@@ -99,6 +99,7 @@ module.exports = {
             'noviembre2021',
             'diciembre2021',
             'enero2022',
+            'febrero2022',
           ]
         },
         {
