@@ -35,6 +35,7 @@ module.exports = {
     docsDir: '',
     editLinkText: '',
     lastUpdated: false,
+    search: false,
     nav: [
       {
         text: 'PluralSight!📘📘',
@@ -100,6 +101,7 @@ module.exports = {
             'diciembre2021',
             'enero2022',
             'febrero2022',
+            'marzo2022',
           ]
         },
         {
