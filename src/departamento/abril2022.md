@@ -14,5 +14,4 @@
 |   Gas 11 Kilos | 18.000 |  Pagado  |
 |   Zapping | 11.000 |  Pagado    |
 |   Star Plus,Disney Channel | 6.000 |  Pagado    |
-|   Disco duro Javiera | 35.334 |  Solo Ceci    |
  **TOTAL** |   648.073 | Pagado
