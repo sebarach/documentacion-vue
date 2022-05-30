@@ -3,12 +3,12 @@
 
 | Nombre Gasto  | Monto $  | Estado |
 |---|---|--|
-|   Arriendo | 388.750   |   | 
+|   Arriendo | 388.850   | Pagado  | 
 |   VTR  |   9.990   |  | 
-|   AGUA |  14.500 |   | 
-|   GAS |  17.322 |  | 
-|   LUZ | 38.400  |    |
-|   Zapping |  11.900 |    |
-|   Regalo Katy |  30.000 |    |
-|   Auto |  250.000 |    |
- **TOTAL** |  730,862    |  
+|   AGUA |  14.500 | Pagado  | 
+|   GAS |  17.322 | Pagado | 
+|   LUZ | 38.400  | Pagado   |
+|   Zapping |  11.900 |  Pagado  |
+|   Regalo Katy |  30.000 |  Pagado  |
+|   Auto |  250.000 | Pagado   |
+ **TOTAL** |  730,862    |  Pagado
