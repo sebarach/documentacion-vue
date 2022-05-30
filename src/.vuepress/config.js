@@ -103,6 +103,7 @@ module.exports = {
             'febrero2022',
             'marzo2022',
             'abril2022',
+            'mayo2022',
           ]
         },
         {
