@@ -1,28 +1,28 @@
 # General 
-<div>
-  <table class="table table-dark">
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-    </tbody>
-  </table>
-  <button class='btn btn-danger btn-lg'>asdasd</button>
-</div>
+---
+
+### Tips Varios
+
+- Bookmarks guardados
+
+<img src="/images/bookmark.png">
+
+- Estado de practicas
+
+<img src="/images/estadoPracticas.png">
+
+- Resolucion Sanciones
+
+<img src="/images/resolucionSancion.png">
+
+- Estado Sesion
+
+<img src="/images/estadosesion.png">
+
+- Estado Sesion
+
+<img src="/images/tipoasignatura.png">
+
+- Vigencia Sancion
+
+<img src="/images/vigenciasancion.png">

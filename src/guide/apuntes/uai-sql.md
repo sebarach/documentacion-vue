@@ -1,6 +1,112 @@
 # Negocio SQL
 ---
 
+<img src="/images/bookmark.png">
+
+- eximir de ingles segun archivo enviado por excel
+``` sql
+CREATE TABLE #Ingles (Id int,
+                      Eximir_desde varchar(max),
+                      Eximir_hasta varchar(max),
+                     )
+--cargamos los datos enviados en una tabla temporal
+insert into #Ingles select 89183,'ENG001','ENG008'
+insert into #Ingles select 89068,'ENG001','ENG008'
+
+    select ex.id expedienteid,
+    a.id asignaturaid,
+    NM.Id NodoMallaId,
+    7 Nota, 
+    'Ex. 2022-1' Descripcion,
+    GETDATE() FechaEximicion,
+    0 IsAnulada,
+    1 UsuarioIdCreacion,
+    getdate() FechaCreacion,
+    1 UsuarioIdModificacion,
+    getdate() FechaModificacion,
+    0 IsDeleted,
+    A.NombreAsignaturaVigenteId NombreAsignaturaId,
+   null IsAnuladoOmega
+    into #nodoMallaEng
+    from Expediente_Expediente ex
+    inner join Expediente_ExpedienteVersionExtraProgramaticoLnk evpl on ex.id=evpl.ExpedienteId
+                                                        and evpl.IsDeleted=0
+                                                        and evpl.IsAnulada=0
+    inner join PlanEstudio_PeriodoMalla pm on evpl.VersionPlanEstudioId=pm.VersionPlanEstudioId
+                                        and pm.IsDeleted=0
+    inner join PlanEstudio_NodoMalla NM on NM.PeriodoMallaId = PM.Id and NM.IsDeleted = 0 and NM.TipoAsignatura = 2
+    inner join PlanEstudio_NodoMallaAsignatura NMA on NMa.NodoMallaId = NM.Id and NMA.IsDeleted = 0
+    inner join Core_Asignatura A on A.Id = NMA.AsignaturaId
+    inner join #Ingles temp on ex.id=temp.id
+    where  a.sigla  like '%ENG%'
+    and cast(substring(a.Sigla,6,1) as int) <= cast(substring(Eximir_hasta,6,1) as int)
+    order by ex.id desc
+
+    insert into Expediente_Eximicion
+    select  expedienteid,
+     asignaturaid,
+    NodoMallaId,
+     Nota,
+     Descripcion,
+    FechaEximicion,
+    IsAnulada,
+     UsuarioIdCreacion,
+    FechaCreacion,
+     UsuarioIdModificacion,
+     FechaModificacion,
+    IsDeleted,
+    NombreAsignaturaId,
+	IsAnuladoOmega
+    from #nodoMallaEng
+
+
+    INSERT INTO omegapm..markedobjects
+    SELECT distinct serverid, 'OMEGACore.Model.Expediente.Eximicion',Ex.Id
+    FROM omegapm..servers S, Expediente_Eximicion Ex
+    WHERE S.enabled = 1
+    and Ex.ExpedienteId in (select Id from #Ingles)
+    and NombreAsignaturaId IN (select NombreAsignaturaId from #nodoMallaEng)
+
+
+    INSERT INTO omegapm..markedobjects
+    SELECT distinct serverid, 'OMEGACore.Model.Expediente.Expediente',Ex.id
+    FROM omegapm..servers S, Expediente_Expediente Ex
+    WHERE S.enabled = 1
+    and Ex.id in (select Id from #Ingles)
+
+    INSERT INTO omegapm..markedobjects
+    SELECT serverid, 'OMEGACore.Model.Expediente.Alumno',Ex.id
+    FROM omegapm..servers S, Expediente_Alumno Ex
+    WHERE S.enabled = 1
+    and Ex.id in (select ee.AlumnoId from #Ingles tmp join Expediente_Expediente ee on tmp.id = ee.Id)
+
+    insert into omegalog..Expediente_Eximicion 
+    select exe.* from Expediente_Eximicion exe
+    inner join #nodoMallaEng nm on exe.expedienteid = nm.expedienteid and exe.nodomallaid = nm.nodomallaid and exe.IsDeleted =0 and exe.UsuarioIdCreacion = 1
+```
+
+
+
+
+
+
+- Corregir encuestas y plantillas
+``` sql
+--buscar las conf que fueron eliminadas
+--setear el punt de conf de e. a 0 en las secciones
+update Planificacion_Seccion
+set ConfiguracionEncuestaDocenteId = 0,FechaModificacion = GETDATE(),UsuarioIdModificacion =1
+where id in (
+select id from Planificacion_Seccion where ConfiguracionEncuestaDocenteId in(27834,17789)
+)
+
+--eliminar de esta tabla tambien para poder agregar las secciones a otra conf
+update EncuestaDocente_SeccionPlantillaEncuestaDocenteLnk
+set IsDeleted = 1 where ConfiguracionEncuestaDocenteId in (27834,17789)
+```
+
+
+
 - Creacion de Encuestas Profesores
 
 ``` sql
