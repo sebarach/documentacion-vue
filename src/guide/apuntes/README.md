@@ -5,24 +5,24 @@
 
 - Bookmarks guardados
 
-<img src="/images/bookmark.png">
+<img src="https://raw.githubusercontent.com/sebarach/documentacion-vue/main/images/bookmark.png">
 
 - Estado de practicas
 
-<img src="/images/estadoPracticas.png">
+<img src="https://raw.githubusercontent.com/sebarach/documentacion-vue/main/images/estadoPracticas.png">
 
 - Resolucion Sanciones
 
-<img src="/images/resolucionSancion.png">
+<img src="https://raw.githubusercontent.com/sebarach/documentacion-vue/main/images/estadoSesion.png">
 
 - Estado Sesion
 
-<img src="/images/estadosesion.png">
+<img src="https://raw.githubusercontent.com/sebarach/documentacion-vue/main/images/resolucionSancion.png">
 
 - Estado Sesion
 
-<img src="/images/tipoasignatura.png">
+<img src="https://raw.githubusercontent.com/sebarach/documentacion-vue/main/images/tipoAsignatura.png">
 
 - Vigencia Sancion
 
-<img src="/images/vigenciasancion.png">
+<img src="https://raw.githubusercontent.com/sebarach/documentacion-vue/main/images/vigenciaSancion.png">
