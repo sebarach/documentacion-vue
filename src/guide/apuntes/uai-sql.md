@@ -1,7 +1,44 @@
 # Negocio SQL
 ---
 
-<img src="/images/bookmark.png">
+- Reporte encuesta docente seccion configuracion ID
+``` sql
+select distinct ink.SeccionId,casig.Sigla,psec.DescripcionEspecifica,venc.NumeroVersion,enc.Nombre,ce.Id configuracionEncuesta 
+from EncuestaDocente_ConfiguracionEncuestaDocente ce 
+join EncuestaDocente_SeccionPlantillaEncuestaDocenteLnk ink on ink.ConfiguracionEncuestaDocenteId = ce.Id and ink.IsDeleted =0
+join Encuesta_VersionEncuesta venc on ink.VersionEncuestaDocenteId = venc.Id and venc.IsDeleted = 0
+join Encuesta_Encuesta enc on venc.EncuestaId = enc.Id and enc.IsDeleted = 0
+join Planificacion_Seccion psec on ink.SeccionId = psec.Id and psec.IsDeleted = 0
+join Core_Asignatura casig on casig.id = psec.AsignaturaId and casig.IsDeleted = 0
+where ce.id in (17889,17890)
+```
+
+
+- Eliminar link de instructores seccion
+``` sql
+declare @existe int;
+set @existe = (select Count(distinct PSED.id) Existe from Planificacion_Seccion S
+join Planificacion_LinkSeccionInstructor LI on LI.SeccionId = S.id and LI.IsDeleted = 0
+join EncuestaDocente_PlantillaEncuestaDocente PED on PED.SeccionId = S.Id and PED.IsDeleted = 0
+join EncuestaDocente_PlantillaSeccionEncuestaDocente PSED on PSED.PlantillaEncuestaDocenteId = PED.Id and PSED.InstructorId = LI.InstructorId and PSED.IsDeleted = 0
+where S.id = 81486
+AND PSED.InstructorId = 14857)
+
+if (@existe >0) begin
+print'Tiene encuesta asociada' end
+else begin
+update Planificacion_LinkSeccionInstructor
+set IsDeleted = 1,FechaModificacion =GETDATE(),UsuarioIdModificacion = 1
+where id = 123894
+end
+
+INSERT INTO omegapm..markedobjects
+select distinct S.ServerId, 'OMEGACore.Model.Planificacion.Seccion', ex.id 
+from omegapm.dbo.Servers S, Planificacion_Seccion ex  with(nolock)
+where S.Enabled = 1 and ex.Id = 81486
+```
+
+
 
 - eximir de ingles segun archivo enviado por excel
 ``` sql
