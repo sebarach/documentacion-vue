@@ -12,4 +12,4 @@
 |   Agua Bidones | 12.000 |    |  
 |   Zapping | 12.000 |      |
 |   Star Plus,Disney Channel | 6.000 |      |
- **TOTAL** |  **626.552** | **554,972**
+ **TOTAL** |  **554,972** | ****
