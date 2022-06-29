@@ -4,7 +4,7 @@
 | Nombre Gasto  | Monto $  | Estado |
 |---|---|--|
 |   Arriendo |  388.750  |  Pagado | 
-|   Estacionamiento | 40.000   |   | 
+|   Estacionamiento | 40.000   | Pagado  | 
 |   VTR  | 9.900  | Pagado | 
 |   AGUA | 14.930 |  pagado | 
 |   GAS | 22.892  | Pagado | 
