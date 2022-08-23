@@ -74,6 +74,7 @@ module.exports = {
           children: [
             '',
             'git-basico',
+            'datatable-js',
           ]
         },
         {

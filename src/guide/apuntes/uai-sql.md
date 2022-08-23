@@ -1,6 +1,33 @@
 # Negocio SQL
 ---
 
+- Reporte Syllabus,enviar qry a joaquin y el con un programa genera los pdf
+``` sql
+SELECT B.BinFile,
+    CAST(
+    cast (PA.Id as nvarchar(MAX)) -- PeriodoAcademicoId
+    + '-' +
+    cast (S.Id  as nvarchar(MAX)) -- IdSeccion
+    + '-' +
+    cast (A.Sigla  as nvarchar(MAX)) -- Sigla
+    + '-' +
+    replace(replace(replace(replace(replace(NA.Nombre,':',' '),'¿',''),'\',' '),'?',''),'/','') -- NombreAsignatura
+    + '.' +
+        case
+            when DPS.Nombre is not null AND DPS.Nombre != '' then reverse(left(reverse(DPS.Nombre),charindex('.',reverse(DPS.Nombre))-1))
+            else reverse(left(reverse(DPS.NombreOriginal),charindex('.',reverse(DPS.NombreOriginal))-1))
+        end
+     AS VARCHAR(MAX)) as Name
+FROM Planificacion_Seccion S
+JOIN RegistrosAcademicos_DocumentoProgramaSeccion DPS ON DPS.Id = S.DocumentoProgramaSeccionId AND DPS.IsDeleted = 0
+JOIN Common_Binario B ON B.Id = DPS.BinarioId AND B.IsDeleted = 0
+JOIN Core_Asignatura A ON A.Id = S.AsignaturaId AND A.IsDeleted = 0
+JOIN Core_NombreAsignatura NA ON NA.Id = S.NombreAsignaturaId AND NA.IsDeleted = 0
+join Planificacion_PeriodoAcademico PA on PA.id = S.PeriodoAcademicoId and PA.IsDeleted =0  and PA.AnoPeriodo = 2022
+WHERE S.IsDeleted = 0
+```
+
+
 - Reporte encuesta docente seccion configuracion ID
 ``` sql
 select distinct ink.SeccionId,casig.Sigla,psec.DescripcionEspecifica,venc.NumeroVersion,enc.Nombre,ce.Id configuracionEncuesta 
