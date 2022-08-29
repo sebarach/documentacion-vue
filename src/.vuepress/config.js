@@ -107,6 +107,7 @@ module.exports = {
             'mayo2022',
             'junio2022',
             'julio2022',
+            'agosto2022',
           ]
         },
         {
