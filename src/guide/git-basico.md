@@ -1,11 +1,20 @@
 # Guia GIT basico !🔔
 ---
 
+
+
 - Iniciar git
 ```js
 git init
 ```
+- Git Diff
 
+```js
+git diff // ver los cambios de archivos unstaged
+git diff // ver los cambios de archivos stagged
+```
+
+'
 - Clonar,listar y cambiarse de branch
 ```js
 git clone url
@@ -32,6 +41,7 @@ git remote rm nombrDeLaRama // elimina una rama
 ```js
 git add . // agrega todos los cambios
 git add nombreArchivo // agrega un archivo o carpeta especifica
+git reset nombreArchivo // quita el add del archivo ()
 git commit -m 'Mensaje'// crea un commit
 git commit --amend  // Se agrega al ultimo commit
 ```
