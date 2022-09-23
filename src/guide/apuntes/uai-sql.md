@@ -1,6 +1,51 @@
 # Negocio SQL
 ---
 
+- Configurar datos para habilitar inscripciones
+
+1. Setear Configuracion
+
+``` sql
+update InscripcionAsignatura_ConfiguracionInscripcionAsignatura
+set FechaAvisoIntranetTermino= FechaAvisoIntranetTermino + 365,FechaTermino = FechaTermino + 365,IsActiva= 1
+where id in (284,283)
+```
+
+
+2- Buscar etapas y setear etapas
+
+``` sql
+select InscribeIngles,InscribeExtraProgramatico,EtapaActiva,* from InscripcionAsignatura_EtapaInscripcionAsignatura 
+where ConfiguracionInscripcionAsignaturaId in (284,283) and IsDeleted = 0
+
+update InscripcionAsignatura_EtapaInscripcionAsignatura
+set EtapaActiva = 1,InscribeIngles = 1,InscribeExtraProgramatico = 1
+where id in( 419,420)
+```
+
+3- Buscar grupos y setear grupos y ver alumnos por grupo
+
+``` sql
+select * from InscripcionAsignatura_GrupoInscripcionAsignatura 
+where EtapaInscripcionAsignaturaId in(419) and IsDeleted = 0
+
+update InscripcionAsignatura_GrupoInscripcionAsignatura
+set FechaTermino = FechaTermino + 365,FechaInicio = FechaInicio - 365
+where EtapaInscripcionAsignaturaId in(420) and IsDeleted = 0
+```
+- El siguiente SP trae los nodos que se pintan los ramos extra
+``` sql
+spExpediente_Obtiene_PeriodosMallaExtraProgramaticos 77884,419,783 -- jmadero@alumnos.uai.cl
+select * from InscripcionAsignatura_ExpedienteGrupoLnk where GrupoInscripcionId = 3190
+
+select ea.Email,* from Expediente_Expediente ee 
+join Expediente_Alumno ea on ee.AlumnoId = ea.id
+join Common_Persona cp on  cp.id = ea.PersonaId
+where ee.Id = 77884
+
+```
+---
+---
 - Reporte Syllabus,enviar qry a joaquin y el con un programa genera los pdf
 ``` sql
 SELECT B.BinFile,
