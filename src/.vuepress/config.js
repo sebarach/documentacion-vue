@@ -21,7 +21,58 @@ module.exports = {
     ['meta', { name: 'theme-color', content: '#3eaf7c' }],
     ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
     ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }],
-    ['link', { rel: 'shortcut icon', type: "image/x-icon", href:`/favicon.ico` }]
+    ['link', { rel: 'shortcut icon', type: "image/x-icon", href:`/favicon.ico` }],
+    ['script', {}, `
+    (function(){
+
+      var doc = document.documentElement;
+      var w = window;
+    
+      var prevScroll = w.scrollY || doc.scrollTop;
+      var curScroll;
+      var direction = 0;
+      var prevDirection = 0;
+    
+      var header = document.getElementById('site-header');
+    
+      var checkScroll = function() {
+  
+        curScroll = w.scrollY || doc.scrollTop;
+        if (curScroll > prevScroll) { 
+          //scrolled up
+          direction = 2;
+        }
+        else if (curScroll < prevScroll) { 
+          //scrolled down
+          direction = 1;
+        }
+    
+        if (direction !== prevDirection) {
+          toggleHeader(direction, curScroll);
+        }
+        
+        prevScroll = curScroll;
+      };
+    
+      var toggleHeader = function(direction, curScroll) {
+        if (direction === 2 && curScroll >= 100) { 
+    
+          //header.classList.add('hide');
+          let element = document.getElementsByTagName('header')[0];
+          element.setAttribute("hidden", "hidden");
+          prevDirection = direction;
+        }
+        else if (direction === 1 && curScroll < 100) {
+          let element = document.getElementsByTagName('header')[0];
+          element.removeAttribute("hidden");
+          prevDirection = direction;
+        }
+      };
+      
+      window.addEventListener('scroll', checkScroll);
+    
+    })();
+    `]
   ],
 
   /**
@@ -159,3 +210,5 @@ module.exports = {
     '@vuepress/plugin-medium-zoom',
   ]
 }
+
+
