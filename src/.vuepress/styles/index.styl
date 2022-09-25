@@ -4,16 +4,27 @@
  * ref：https://v1.vuepress.vuejs.org/config/#index-styl
  */
 
+html
+  height 100%
+  border-style none!important
 
-html, body
-  padding 0!important
-  margin 0!important
-  background-color #239B56!important
+ body
+  background rgb(7,43,51);
+  background linear-gradient(238deg, rgba(7,43,51,1) 0%, rgba(13,13,60,1) 35%, rgba(7,43,51,1) 100%)!important
+  background-position center
+  background-repeat no-repeat
+  min-height 100%
+  max-width 100%
+  border-style none!important
 
 .home .hero img
   max-width 450px!important
   border-radius 100px!important
 
+th,td,tr
+ border 0px !important
+ background-color inherit!important
+ color green!important
 
 .navbar
   position fixed
@@ -26,11 +37,61 @@ html, body
   box-sizing border-box
   border-bottom 1px solid $borderColor
 
+.nav-links,.router-link-active
+  color: white !important
+
+
 .links
-  background-color #239B56!important
+  background inherit
 
 .sidebar
-  background-color #239B56!important
+  background inherit
+  border-style none!important
 
-tr
-  background-color #239B56!important
+.theme-container no-sidebar
+  background rgb(7,43,51)!important
+  background linear-gradient(to bottom,0deg, rgba(30,19,48,1) 0%)!important
+
+.navbar .links
+  background inherit!important
+
+.theme-container
+  background inherit
+
+.sidebar
+  background inherit
+
+
+.navbar
+  background inherit!important
+
+header
+  background inherit
+  border-style none!important
+
+.nav-links
+  background inherit
+
+.links
+  background inherit
+
+
+.site-name
+  color white!important
+
+p
+  color white!important
+
+.sidebar-link
+  color white!important
+
+h1,h2,h3,h4,h5,h6
+  color white!important
+ul li
+  color white!important
+
+footer
+  background inherit
+
+table
+  background-color inherit

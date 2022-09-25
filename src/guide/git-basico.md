@@ -14,7 +14,6 @@ git diff // ver los cambios de archivos unstaged
 git diff // ver los cambios de archivos stagged
 ```
 
-'
 - Clonar,listar y cambiarse de branch
 ```js
 git clone url
