@@ -3,7 +3,7 @@ home: true
 heroImage: https://cdn.wizeline.com/uploads/2020/02/Wizeline-Storytelling-Documentation-Header.png
 tagline: 
 actionText: Revisar Docuementacion →
-actionLink: /guide/
+actionLink: /departamento/
 features:
 - title: Documentacion
   details: Tecnologias Varias
