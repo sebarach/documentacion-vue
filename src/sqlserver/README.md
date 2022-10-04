@@ -1,3 +1,3 @@
-### Sql Server Tips !
+## Sql Server Tips 🧊
 
 

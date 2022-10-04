@@ -35,6 +35,9 @@ module.exports = {
     
       var header = document.getElementById('site-header');
     
+
+
+    
       var checkScroll = function() {
   
         curScroll = w.scrollY || doc.scrollTop;
@@ -70,7 +73,7 @@ module.exports = {
       };
       
       window.addEventListener('scroll', checkScroll);
-    
+      
     })();
     `]
   ],
