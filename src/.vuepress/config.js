@@ -3,9 +3,6 @@ const { description } = require('../../package')
 module.exports = {
   dest:'docs',
   base:'/documentacion-vue/',
-  /**
-   * Ref：https://v1.vuepress.vuejs.org/config/#title
-   */
   title: 'Documentacion General !💻💻💻',
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#description
@@ -102,10 +99,6 @@ module.exports = {
       {
         text: 'Documentacion 😄',
         link: '/guide/',
-      },
-      {
-        text: 'Config 🚀',
-        link: '/config/'
       },
       {
         text: 'Mi GitHub ! ❤️',
