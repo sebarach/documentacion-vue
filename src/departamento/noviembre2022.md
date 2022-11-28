@@ -8,10 +8,10 @@
 |   VTR  | 9.900  |  Pagado | 
 |   AGUA | 12.120 | Pagado | 
 |   GAS | 23.433 | Pagado | 
-|   LUZ | 39.200 |  Pagado  |  
+|   LUZ | 35.200 |  Pagado  |  
 |   Seguro Auto | 34.000 | Pagado  |    |
 |   Agua Bidones | 6.000 |  Pagado  |  
 |   Zapping | 12.000 |   Pagado   |
 |   Star Plus,Disney Channel | 6.000 |  Pagado | 
 |   Youtube Premium | 6.000 | Pagado  |
- **TOTAL** |  **577.503** |  Pagado
+ **TOTAL** |  **573.503** |  Pagado
