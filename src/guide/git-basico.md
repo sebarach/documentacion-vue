@@ -1,8 +1,6 @@
 # Guia GIT basico !🔔
 ---
 
-
-
 - Iniciar git
 ```js
 git init
