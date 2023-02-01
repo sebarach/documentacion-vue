@@ -14,4 +14,4 @@
 |   Zapping | 12.000 |   Pagado   |
 |   Star Plus,Disney Channel | 6.000 | Pagado  | 
 |   Youtube Premium | 6.000 |  Pagado |
- **TOTAL** |  **570.143** |  
+ **TOTAL** |  **567,364** |  
