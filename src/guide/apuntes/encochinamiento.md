@@ -1,7 +1,7 @@
 # Encochinamiento Objects
 ---
 
-- Encochinar Expediente
+-- Encochinar Expediente
 
 ```sql
 INSERT INTO omegapm..markedobjects

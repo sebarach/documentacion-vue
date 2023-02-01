@@ -151,6 +151,7 @@ module.exports = {
             'octubre2022',
             'noviembre2022',
             'diciembre2022',
+            'enero2023',
           ]
         },
         {

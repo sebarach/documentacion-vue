@@ -433,8 +433,7 @@ where  PS.SeccionCerrada = 0 -- AND PHC.SeccionId = 14777
 
 
 - Ver % de avance de ayudantes segun los RUT ENVIADOS 
-- tipoRolId de la tabla planificacionInstuctor = (5 = ayudante)
-```sql
+-- tipoRolId de la tabla planificacionInstuctor = (5 = ayudante)
 select EE.Id[Expediente ID]
 ,CP.Nombre + ' '+ CP.ApellidoPaterno [Nombre]
 ,EA.Email [Correo]
@@ -449,7 +448,7 @@ join Expediente_EstadoExpediente EEX ON EE.Estado = EEX.IdEstado AND EEX.IdSubEs
 join Planificacion_Instructor PLI ON PLI.PersonaId = CP.Id AND PLI.TipoRolId = 5
 where rut IN (19671003,19035029,19488443,19471216,19842262,20847560)
 order by cp.Rut desc
-```
+
 
 - Obtiene las inscripciones vigentes de un alumno segun su Expediente ID y su periodoacademico ID
 - Ademas trae la informacion de la seccion y el instructor
