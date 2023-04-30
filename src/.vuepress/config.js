@@ -154,6 +154,7 @@ module.exports = {
             'enero2023',
             'febrero2023',
             'marzo2023',
+            'abril2023',
           ]
         },
         {
