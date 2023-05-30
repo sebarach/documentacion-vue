@@ -139,7 +139,7 @@ module.exports = {
             // 'octubre2021',
             // 'noviembre2021',
             // 'diciembre2021',
-            'enero2022',
+            //'enero2022',
             'febrero2022',
             'marzo2022',
             'abril2022',
@@ -155,6 +155,7 @@ module.exports = {
             'febrero2023',
             'marzo2023',
             'abril2023',
+            'mayo2023',
           ]
         },
         {
