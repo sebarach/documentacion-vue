@@ -15,4 +15,5 @@
 |   Star Plus,Disney Channel | 6.000 |  Pagado | 
 |   Youtube Premium | 6.000 |  Pagado |
 |   Permiso de circulacion | 30.000 | Pagado  |
- **TOTAL** |  **622.357** |  
+|   Permiso de ETA | 70.000 | Pagado  |
+ **TOTAL** |  **692.357** |  
