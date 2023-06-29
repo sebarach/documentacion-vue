@@ -16,4 +16,5 @@
 |   Youtube Premium | 6.000 |  Pagado |
 |   Permiso de circulacion | 30.000 | Pagado  |
 |   Permiso de ETA | 70.000 | Pagado  |
- **TOTAL** |  **692.357** |  
+|   Autopistas | 47.383 | Pagado  |
+ **TOTAL** |  **739.740** |  
