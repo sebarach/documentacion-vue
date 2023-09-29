@@ -159,6 +159,7 @@ module.exports = {
             'junio2023',
             'julio2023',
             'agosto2023',
+            'septiembre2023',
           ]
         },
         {
