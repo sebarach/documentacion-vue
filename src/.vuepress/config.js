@@ -1,9 +1,9 @@
-const { description } = require('../../package')
+const { description } = require("../../package");
 
 module.exports = {
-  dest:'docs',
-  base:'/documentacion-vue/',
-  title: 'Documentacion General !💻💻💻',
+  dest: "docs",
+  base: "/documentacion-vue/",
+  title: "Documentacion General !💻💻💻",
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#description
    */
@@ -15,11 +15,20 @@ module.exports = {
    * ref：https://v1.vuepress.vuejs.org/config/#head
    */
   head: [
-    ['meta', { name: 'theme-color', content: '#3eaf7c' }],
-    ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
-    ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }],
-    ['link', { rel: 'shortcut icon', type: "image/x-icon", href:`/favicon.ico` }],
-    ['script', {}, `
+    ["meta", { name: "theme-color", content: "#3eaf7c" }],
+    ["meta", { name: "apple-mobile-web-app-capable", content: "yes" }],
+    [
+      "meta",
+      { name: "apple-mobile-web-app-status-bar-style", content: "black" },
+    ],
+    [
+      "link",
+      { rel: "shortcut icon", type: "image/x-icon", href: `/favicon.ico` },
+    ],
+    [
+      "script",
+      {},
+      `
     (function(){
 
       var doc = document.documentElement;
@@ -69,66 +78,63 @@ module.exports = {
       window.addEventListener('scroll', checkScroll);
       
     })();
-    `]
+    `,
+    ],
   ],
 
   themeConfig: {
-    repo: '',
+    repo: "",
     editLinks: false,
-    docsDir: '',
-    editLinkText: '',
+    docsDir: "",
+    editLinkText: "",
     lastUpdated: false,
     search: false,
     nav: [
       {
-        text: 'PluralSight!📘📘',
-        link: '/pluralsight/',
+        text: "PluralSight!📘📘",
+        link: "/pluralsight/",
       },
       {
-        text: 'SQL!📘📘',
-        link: '/sqlserver/',
+        text: "SQL!📘📘",
+        link: "/sqlserver/",
       },
       {
-        text: 'JavaScript ! 💀💀💀',
-        link: '/javascript/',
+        text: "JavaScript ! 💀💀💀",
+        link: "/javascript/",
       },
       {
-        text: 'Cuentas Departamento 💵💵💵',
-        link: '/departamento/',
+        text: "Cuentas Departamento 💵💵💵",
+        link: "/departamento/",
       },
       {
-        text: 'Documentacion 😄',
-        link: '/guide/',
+        text: "Documentacion 😄",
+        link: "/guide/",
       },
       {
-        text: 'Mi GitHub ! ❤️',
-        link: 'https://github.com/sebarach'
-      }
+        text: "Mi GitHub ! ❤️",
+        link: "https://github.com/sebarach",
+      },
     ],
     sidebar: {
-      '/guide/': [
+      "/guide/": [
         {
-          title: 'Documentacion',
+          title: "Documentacion",
           collapsable: true,
-          children: [
-            '',
-            'git-basico',
-            'datatable-js',
-          ]
+          children: ["", "git-basico", "datatable-js"],
         },
         {
-          title: 'Apuntes',
+          title: "Apuntes",
           collapsable: true,
           children: [
-            '/guide/apuntes/',
-            '/guide/apuntes/uai-sql',
-            '/guide/apuntes/encochinamiento',
-          ]
+            "/guide/apuntes/",
+            "/guide/apuntes/uai-sql",
+            "/guide/apuntes/encochinamiento",
+          ],
         },
       ],
-      '/departamento/': [
+      "/departamento/": [
         {
-          title: 'General',
+          title: "General",
           collapsable: true,
           children: [
             // 'mayo2021',
@@ -140,76 +146,60 @@ module.exports = {
             // 'noviembre2021',
             // 'diciembre2021',
             //'enero2022',
-            'febrero2022',
-            'marzo2022',
-            'abril2022',
-            'mayo2022',
-            'junio2022',
-            'julio2022',
-            'agosto2022',
-            'septiembre2022',
-            'octubre2022',
-            'noviembre2022',
-            'diciembre2022',
-            'enero2023',
-            'febrero2023',
-            'marzo2023',
-            'abril2023',
-            'mayo2023',
-            'junio2023',
-            'julio2023',
-            'agosto2023',
-            'septiembre2023',
-          ]
+            "febrero2022",
+            "marzo2022",
+            "abril2022",
+            "mayo2022",
+            "junio2022",
+            "julio2022",
+            "agosto2022",
+            "septiembre2022",
+            "octubre2022",
+            "noviembre2022",
+            "diciembre2022",
+            "enero2023",
+            "febrero2023",
+            "marzo2023",
+            "abril2023",
+            "mayo2023",
+            "junio2023",
+            "julio2023",
+            "agosto2023",
+            "septiembre2023",
+          ],
         },
         {
-          title: 'Numero de Cuentas',
+          title: "Numero de Cuentas",
           collapsable: true,
-          children: [
-            '/departamento/num-cuentas/',
-          ]
+          children: ["/departamento/num-cuentas/"],
         },
       ],
-      '/javascript/': [
+      "/javascript/": [
         {
-          title: 'General',
+          title: "General",
           collapsable: true,
-          children: [
-            'basico',
-            'medio',
-            'advanced',
-          ]
-        }
+          children: ["basico", "medio", "advanced"],
+        },
       ],
-      '/sqlserver/': [
+      "/sqlserver/": [
         {
-          title: 'General',
+          title: "General",
           collapsable: true,
-          children: [
-            'tips',
-          ]
-        }
+          children: ["tips"],
+        },
       ],
-      '/pluralsight/': [
+      "/pluralsight/": [
         {
-          title: 'General',
+          title: "General",
           collapsable: true,
-          children: [
-            'debuger',
-            'net5',
-          ]
-        }
+          children: ["debuger", "net5"],
+        },
       ],
-    }
+    },
   },
 
   /**
    * Apply plugins，ref：https://v1.vuepress.vuejs.org/zh/plugin/
    */
-  plugins: [
-    '@vuepress/plugin-back-to-top',
-    '@vuepress/plugin-medium-zoom',
-  ]
-}
-
-
+  plugins: ["@vuepress/plugin-back-to-top", "@vuepress/plugin-medium-zoom"],
+};
